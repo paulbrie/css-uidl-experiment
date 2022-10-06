@@ -11,8 +11,10 @@ Subject.prototype.hook = function () {
 
 const store = {
   editor: {
-    monacoEditor: new Subject<monaco.editor.IStandaloneCodeEditor | null>(null),
-    value: new Subject(''),
+    cssEditor: new Subject<monaco.editor.IStandaloneCodeEditor | null>(null),
+    css: new Subject(''),
+    uidlEditor: new Subject<monaco.editor.IStandaloneCodeEditor | null>(null),
+    uidl: new Subject(''),
   },
 };
 
