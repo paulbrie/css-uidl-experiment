@@ -1,6 +1,8 @@
 import subjecto from '../lib/subjecto';
 import { useEffect, useState } from 'react';
-import firebase from 'firebase/app';
+import { FirebaseApp } from 'firebase/app';
+import { User } from 'firebase/auth';
+import { init as initFirebase } from '../services/firebase';
 
 const { Subject } = subjecto;
 // add a default onMount hook
@@ -10,8 +12,6 @@ Subject.prototype.hook = function () {
   return value;
 };
 
-import withFirebase from '../services/firebase';
-
 const store = {
   editor: {
     cssEditor: new Subject<monaco.editor.IStandaloneCodeEditor | null>(null),
@@ -20,10 +20,12 @@ const store = {
     uidl: new Subject(''),
   },
   firebase: {
-    instance: new Subject<firebase.FirebaseApp | null>(null),
+    instance: new Subject<FirebaseApp | null>(null),
   },
+  user: new Subject<User | null>(null),
+  userToken: new Subject(''),
 };
 
-withFirebase(store);
+initFirebase();
 
 export default store;
