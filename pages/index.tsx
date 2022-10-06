@@ -1,7 +1,7 @@
 import Editor from '@monaco-editor/react';
 import { useEffect, useRef, useState } from 'react';
 import store from '../store';
-
+import Header from '../components/header';
 import cssParser from 'css';
 
 const defaultCss = `.text {
@@ -35,6 +35,7 @@ export default function Home() {
 
   return (
     <div>
+      <Header />
       <div>
         <h2>CSS {!validCss.current && `(invalid)`}</h2>
         <Editor

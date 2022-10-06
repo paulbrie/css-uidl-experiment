@@ -15,6 +15,10 @@ a {
   box-sizing: border-box;
 }
 
+header {
+  padding: 16px 32px;
+}
+
 h2 {
   padding: 0 1rem;
 }
