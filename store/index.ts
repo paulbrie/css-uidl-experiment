@@ -24,6 +24,7 @@ const store = {
   },
   user: new Subject<User | null>(null),
   userToken: new Subject(''),
+  tokens: new Subject<Record<string, string>>(''),
 };
 
 initFirebase();
