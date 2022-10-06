@@ -10,7 +10,10 @@ Subject.prototype.hook = function () {
 };
 
 const store = {
-  monacoEditor: new Subject<monaco.editor.IStandaloneCodeEditor | null>(null),
+  editor: {
+    monacoEditor: new Subject<monaco.editor.IStandaloneCodeEditor | null>(null),
+    value: new Subject(''),
+  },
 };
 
 export default store;
