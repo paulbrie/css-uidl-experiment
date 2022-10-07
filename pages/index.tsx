@@ -47,35 +47,55 @@ export default function Home() {
     store.editor.uidlEditor.next(editor);
   };
 
+  useEffect(() => {
+    const resizeMonacoEditors = () => {
+      store.editor.cssEditor.value.layout();
+      store.editor.uidlEditor.value.layout();
+      console.log(store.editor.cssEditor.value.layout);
+    };
+    window.addEventListener('resize', resizeMonacoEditors);
+    return () => window.removeEventListener('resize', resizeMonacoEditors);
+  }, []);
+
   return (
     <div className="flex flex-col h-full">
       <Header />
       <div className="flex flex-1">
         <LeftMenu />
-        <div className="flex flex-col flex-1 p-8">
+        <div className="flex flex-col flex-1 p-8 overflow">
           <div>
             <h2>CSS {!validCss.current && `(invalid)`}</h2>
-            <Editor
-              height="200px"
-              defaultLanguage="css"
-              defaultValue={'// ... loading'}
-              value={css}
-              onMount={onMountCss}
-              onChange={(value) => {
-                store.editor.css.next(value);
-              }}
-            />
+            <div
+              style={{ width: 'calc(100vw - 120px)' }}
+              className="border border-color-slate-100"
+            >
+              <Editor
+                height="200px"
+                defaultLanguage="css"
+                defaultValue={'// ... loading'}
+                value={css}
+                onMount={onMountCss}
+                onChange={(value) => {
+                  store.editor.css.next(value);
+                }}
+              />
+            </div>
           </div>
           <Tokens />
           <div>
             <h2>JSON</h2>
-            <Editor
-              height="400px"
-              defaultLanguage="json"
-              defaultValue={'// ... loading'}
-              value={json}
-              onMount={onMountUidl}
-            />
+            <div
+              style={{ width: 'calc(100vw - 120px)' }}
+              className="border border-color-slate-100"
+            >
+              <Editor
+                height="400px"
+                defaultLanguage="json"
+                defaultValue={'// ... loading'}
+                value={json}
+                onMount={onMountUidl}
+              />
+            </div>
           </div>
         </div>
       </div>
