@@ -4,16 +4,10 @@ import store from '../store';
 import Header from '../components/header';
 import Tokens from '../components/tokens';
 import LeftMenu from '../components/leftMenu';
+import SectionTitle from '../components/sectionTitle';
 import cssParser, { Rule } from 'css';
 
-const defaultCss = `.text {
-  color: red;
-}
-
-:root {
-  --color-red: red;
-}
-`;
+const defaultCss = `...loading`;
 
 export default function Home() {
   let json = '{}';
@@ -25,8 +19,11 @@ export default function Home() {
     const tokens: typeof store.tokens.value = {};
     ast.stylesheet.rules.forEach((rule: Rule) => {
       console.log(rule.selectors[0]);
-      tokens[rule.selectors[0]] =
-        rule.declarations[0]?.property + ':' + rule.declarations[0]?.value;
+      const rules = {};
+      rule.declarations.forEach((declaration) => {
+        rules[declaration.property] = declaration.value;
+      });
+      tokens[rule.selectors[0]] = rules;
     });
     store.tokens.next(tokens);
 
@@ -63,8 +60,8 @@ export default function Home() {
       <div className="flex flex-1">
         <LeftMenu />
         <div className="flex flex-col flex-1 p-8 overflow">
-          <div>
-            <h2>CSS {!validCss.current && `(invalid)`}</h2>
+          <div className="mb-8">
+            <SectionTitle>CSS {!validCss.current && `(invalid)`}</SectionTitle>
             <div
               style={{ width: 'calc(100vw - 120px)' }}
               className="border border-color-slate-100"
@@ -83,8 +80,8 @@ export default function Home() {
             </div>
           </div>
           <Tokens />
-          <div>
-            <h2>JSON</h2>
+          <div className="mb-8">
+            <SectionTitle>JSON</SectionTitle>
             <div
               style={{ width: 'calc(100vw - 120px)' }}
               className="border border-color-slate-100"

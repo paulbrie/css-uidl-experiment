@@ -46,6 +46,7 @@ store.firebase.db.subscribe((db) => {
   }
   const cssRef = ref(db, 'projects/project1/css');
   onValue(cssRef, (snapshot) => {
+    console.log(snapshot.key);
     const data = snapshot.val();
     if (data !== store?.editor.css.value) {
       store?.editor.css.next(data);
