@@ -6,9 +6,9 @@ const Tokens = () => {
     <div style={{ height: 200 }}>
       <h2>Tokens</h2>
       <ul>
-        {Object.keys(tokens).map((key) => {
+        {Object.keys(tokens).map((key, index) => {
           return (
-            <li>
+            <li key={index}>
               {key}
               <br />
               <pre>{tokens[key]}</pre>

@@ -77,6 +77,7 @@ export default function Home() {
                 onMount={onMountCss}
                 onChange={(value) => {
                   store.editor.css.next(value);
+                  store.firebase.write(value);
                 }}
               />
             </div>

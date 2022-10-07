@@ -15,7 +15,7 @@ const provider = new GoogleAuthProvider();
 
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
-let db: Database | null;
+let db: Database | null = null;
 
 export const init = () => {
   if (app) {
@@ -24,10 +24,11 @@ export const init = () => {
 
   app = initializeApp(firebaseConfig);
   auth = getAuth();
-  db = getDatabase(app);
+  db = getDatabase();
 
   onAuthStateChanged(auth, (user) => {
     store.user.next(user);
+    store.firebase.db.next(db);
     user?.getIdToken(true).then((token) => {
       store.userToken.next(token);
     });
