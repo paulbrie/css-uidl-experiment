@@ -1,4 +1,5 @@
 import { initializeApp, FirebaseApp } from 'firebase/app';
+import { getDatabase, Database } from 'firebase/database';
 import store from '../../store';
 import {
   getAuth,
@@ -8,19 +9,13 @@ import {
   Auth,
 } from 'firebase/auth';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyByJkpQkT4hp1wYgEv7K7wDlialRoNn5c0',
-  authDomain: 'css-experiment.firebaseapp.com',
-  projectId: 'css-experiment',
-  storageBucket: 'css-experiment.appspot.com',
-  messagingSenderId: '962563251449',
-  appId: '1:962563251449:web:083a07d44730ffda055628',
-};
+import firebaseConfig from './config';
 
 const provider = new GoogleAuthProvider();
 
 let app: FirebaseApp | null = null;
 let auth: Auth | null = null;
+let db: Database | null;
 
 export const init = () => {
   if (app) {
@@ -29,6 +24,7 @@ export const init = () => {
 
   app = initializeApp(firebaseConfig);
   auth = getAuth();
+  db = getDatabase(app);
 
   onAuthStateChanged(auth, (user) => {
     store.user.next(user);
