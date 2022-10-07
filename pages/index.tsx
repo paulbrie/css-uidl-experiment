@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import store from '../store';
 import Header from '../components/header';
 import Tokens from '../components/tokens';
+import LeftMenu from '../components/leftMenu';
 import cssParser, { Rule } from 'css';
 
 const defaultCss = `.text {
@@ -47,31 +48,36 @@ export default function Home() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col h-full">
       <Header />
-      <div>
-        <h2>CSS {!validCss.current && `(invalid)`}</h2>
-        <Editor
-          height="200px"
-          defaultLanguage="css"
-          defaultValue={'// ... loading'}
-          value={css}
-          onMount={onMountCss}
-          onChange={(value) => {
-            store.editor.css.next(value);
-          }}
-        />
-      </div>
-      <Tokens />
-      <div>
-        <h2>JSON</h2>
-        <Editor
-          height="400px"
-          defaultLanguage="json"
-          defaultValue={'// ... loading'}
-          value={json}
-          onMount={onMountUidl}
-        />
+      <div className="flex flex-1">
+        <LeftMenu />
+        <div className="flex flex-col flex-1 p-8">
+          <div>
+            <h2>CSS {!validCss.current && `(invalid)`}</h2>
+            <Editor
+              height="200px"
+              defaultLanguage="css"
+              defaultValue={'// ... loading'}
+              value={css}
+              onMount={onMountCss}
+              onChange={(value) => {
+                store.editor.css.next(value);
+              }}
+            />
+          </div>
+          <Tokens />
+          <div>
+            <h2>JSON</h2>
+            <Editor
+              height="400px"
+              defaultLanguage="json"
+              defaultValue={'// ... loading'}
+              value={json}
+              onMount={onMountUidl}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

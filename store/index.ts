@@ -24,7 +24,8 @@ const store = {
   },
   user: new Subject<User | null>(null),
   userToken: new Subject(''),
-  tokens: new Subject<Record<string, string>>(''),
+  tokens: new Subject<Record<string, string>>({}),
+  page: new Subject<'home' | 'settings' | 'uidl'>('home'),
 };
 
 initFirebase();
